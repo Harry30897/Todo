@@ -1,0 +1,70 @@
+<h1>Pending Tasks till<%= time %> </h1>
+<form action="/add_task" method="POST">
+<input type="text" name="task" /><br>
+<input type="submit" value="Add Task" />
+</form>
+<ul>
+<% tasks.each do |task|  %>
+
+<% if task.completed %>
+	<li class="strikethrough">
+<% else %>
+	<li>
+<% end %>
+ 
+ <%= task.task  %>
+
+    <!--Important-->
+	<form action="/typei" method="POST">
+	<input type="hidden" name="task_id" value="<%= task.id %>"/>
+	
+	<% if task.type_i %>
+	<input type="submit" value="Important" class="important">
+	<% else %>
+	<input type="submit" value="Not-Important">
+	<% end %>
+	
+	</form>
+
+	<!--Urgent-->
+	<form action="/typeu" method="POST">
+	<input type="hidden" name="task_id" value="<%= task.id %>"/>
+	
+	<% if task.type_u %>
+	<input type="submit" value="Urgent" class="urgent">
+	<% else %>
+	<input type="submit" value="Not-Urgent">
+	<% end %>
+	
+	</form>
+	
+	<!--Toggle Task-->
+	<form action="/toggle_task" method="POST">
+    <input type="hidden" name="task_id" value="<%= task.id %>"/>
+    <input type="submit" value="Toggle Task">
+
+	</form>
+
+	<!--Remove Task-->
+	<form action="/delete" method="POST">
+	<input type="hidden" name="task_id" value="<%= task.id %>"/>
+    <input type="submit" value="Remove Task">
+    </form>
+
+
+</li>
+<% end %>
+</ul>
+
+
+<style>
+	.strikethrough {
+		text-decoration: line-through;
+	}
+	.urgent{
+		background-color: red;
+	}
+	.important{
+		background-color: blue;
+	}
+</style>

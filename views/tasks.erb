@@ -1,9 +1,10 @@
-<h1>Pending Tasks till<%= time %> </h1>
+<!--<h1 align="center">To-Do App</h1>-->
 <form action="/add_task" method="POST">
 <input type="text" name="task" /><br>
 <input type="submit" value="Add Task" />
 </form>
 <ul>
+<% if tasks %>
 <% tasks.each do |task|  %>
 
 <% if task.completed %>
@@ -12,7 +13,7 @@
 	<li>
 <% end %>
  
- <%= task.task  %>
+ <%= task.content  %>
 
     <!--Important-->
 	<form action="/typei" method="POST">
@@ -46,7 +47,8 @@
 	</form>
 
 	<!--Remove Task-->
-	<form action="/delete" method="POST">
+	<form action="/delete" method="post">
+	<input type="hidden" name="_method" value="delete">
 	<input type="hidden" name="task_id" value="<%= task.id %>"/>
     <input type="submit" value="Remove Task">
     </form>
@@ -54,17 +56,32 @@
 
 </li>
 <% end %>
-</ul>
 
+  <% end %>
+</ul>
+<form action="/signout" method="POST">
+<input type="submit" value="Logout">
+</form>
 
 <style>
+     body{
+     	background-color: blanchedalmond;
+     }
 	.strikethrough {
 		text-decoration: line-through;
 	}
 	.urgent{
-		background-color: red;
+		background-color: burlywood;
 	}
 	.important{
-		background-color: blue;
+		background-color: coral;
 	}
+	h1 { 
+        font-family: Arial;
+        font-size: 3.2em;
+        border-color: teal;
+        border-width: 5px;
+        border-style: dotted;
+        padding:10px;
+    }
 </style>
